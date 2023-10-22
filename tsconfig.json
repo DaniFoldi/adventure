@@ -1,0 +1,6 @@
+{
+  "extends": "some-tsconfig-preset/workers",
+  "compilerOptions": {
+    "jsx": "preserve"
+  }
+}

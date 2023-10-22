@@ -1,0 +1,23 @@
+---
+import "nes.css/css/nes.min.css";
+---
+
+<html lang="en">
+<head class="w-full h-full">
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="og:title" content="Adventure game" />
+    <meta name="og:description" content="A game made with Workers AI" />
+    <meta name="og:image" content="/adventure.jpg" />
+    <link rel="favicon" href="/favicon.jpg" />
+    <title>Adventure</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+</head>
+  <body class="grid place-items-center w-full h-full bg-gray-100">
+  <div class="max-w-3xl m-4">
+    <slot />
+  </div>
+  </body>
+</html>

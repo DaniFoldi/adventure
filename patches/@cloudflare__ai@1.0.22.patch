@@ -1,0 +1,163 @@
+diff --git a/dist/ai.js b/dist/ai.js
+index 553218b14efa14a82e6bc13d4aca17efa66cdc44..099eabc8eced3671c49184d794de5e77c5c99ba8 100644
+--- a/dist/ai.js
++++ b/dist/ai.js
+@@ -1,6 +1,6 @@
+-import { InferenceSession } from "./session";
+-import { validateInput, getModelSettings } from "./tools";
+-import { modelMappings } from "./catalog";
++import { InferenceSession } from "./session.js";
++import { validateInput, getModelSettings } from "./tools.js";
++import { modelMappings } from "./catalog.js";
+ export class Ai {
+     constructor(binding, options = {}) {
+         this.binding = binding;
+diff --git a/dist/catalog.js b/dist/catalog.js
+index ae65e5b8d492fa4059d79aaea1853bf1b4c3e4ef..447a9e85190bdb78f0483f8d593791af308865d2 100644
+--- a/dist/catalog.js
++++ b/dist/catalog.js
+@@ -1,9 +1,9 @@
+-import { AiTextGeneration } from "./tasks/text-generation";
+-import { AiTextClassification } from "./tasks/text-classification";
+-import { AiTextEmbeddings } from "./tasks/text-embeddings";
+-import { AiTranslation } from "./tasks/translation";
+-import { AiSpeechRecognition } from "./tasks/speech-recognition";
+-import { AiImageClassification } from "./tasks/image-classification";
++import { AiTextGeneration } from "./tasks/text-generation.js";
++import { AiTextClassification } from "./tasks/text-classification.js";
++import { AiTextEmbeddings } from "./tasks/text-embeddings.js";
++import { AiTranslation } from "./tasks/translation.js";
++import { AiSpeechRecognition } from "./tasks/speech-recognition.js";
++import { AiImageClassification } from "./tasks/image-classification.js";
+ export const modelMappings = {
+     "text-classification": {
+         models: ["@cf/huggingface/distilbert-sst-2-int8"],
+diff --git a/dist/index.js b/dist/index.js
+index 3a1765dc4771b7b99afdd627e0677d5bac017480..6040d10485aeb1211c4052c8eade8608e5a05e54 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1,4 +1,4 @@
+-export * from "./tensor";
+-export * from "./session";
+-export * from "./ai";
+-export * from "./catalog";
++export * from "./tensor.js";
++export * from "./session.js";
++export * from "./ai.js";
++export * from "./catalog.js";
+diff --git a/dist/session.js b/dist/session.js
+index 34139690e49c53a5b4f2b4946a16240e0679334b..17005bc729d99147e0653ea0a3a26cbc2f94f4da 100644
+--- a/dist/session.js
++++ b/dist/session.js
+@@ -1,5 +1,5 @@
+-import { Tensor } from "./tensor";
+-import { getEventStream, getModelSettings } from "./tools";
++import { Tensor } from "./tensor.js";
++import { getEventStream, getModelSettings } from "./tools.js";
+ function parseInputs(inputs) {
+     if (Array.isArray(inputs)) {
+         return inputs.map((input) => input.toJSON());
+diff --git a/dist/tasks/data/validators.js b/dist/tasks/data/validators.js
+index dac5a797e965c8dd8e8443601b7d36bd21fdc1ae..461fa2cd6935bff599ce6ae89043deee9472a4bb 100644
+--- a/dist/tasks/data/validators.js
++++ b/dist/tasks/data/validators.js
+@@ -1,4 +1,5 @@
+ "use strict";
++let exports = {}
+ exports["#/definitions/text-classification"] = validate10;
+ const schema11 = { "type": "object", "properties": { "text": { "type": "string" } }, "required": ["text"], "$id": "#/definitions/text-classification" };
+ function validate10(data, { instancePath = "", parentData, parentDataProperty, rootData = data } = {}) { ; let vErrors = null; let errors = 0; if (errors === 0) {
+@@ -614,3 +615,4 @@ function validate15(data, { instancePath = "", parentData, parentDataProperty, r
+         return false;
+     }
+ } validate15.errors = vErrors; return errors === 0; }
++export default exports;
+diff --git a/dist/tasks/image-classification.js b/dist/tasks/image-classification.js
+index c27fe8bf5e75a9340658a0b6f837a37dff340d7b..3afbf36ec38be2e9d5c655af2289504461fc86fe 100644
+--- a/dist/tasks/image-classification.js
++++ b/dist/tasks/image-classification.js
+@@ -1,5 +1,5 @@
+-import { Tensor, TensorType } from "../tensor";
+-import { resnetLabels } from "./data/labels";
++import { Tensor, TensorType } from "../tensor.js";
++import { resnetLabels } from "./data/labels.js";
+ export class AiImageClassification {
+     constructor(inputs, modelSettings) {
+         this.schema = {
+diff --git a/dist/tasks/speech-recognition.js b/dist/tasks/speech-recognition.js
+index 36f2df4e011a628d817306f2d6fa17fffc30908f..0fc635fc5e201a874e57821bc2ec7f314256cbec 100644
+--- a/dist/tasks/speech-recognition.js
++++ b/dist/tasks/speech-recognition.js
+@@ -1,4 +1,4 @@
+-import { Tensor, TensorType } from "../tensor";
++import { Tensor, TensorType } from "../tensor.js";
+ export class AiSpeechRecognition {
+     constructor(inputs, modelSettings) {
+         this.schema = {
+diff --git a/dist/tasks/text-classification.js b/dist/tasks/text-classification.js
+index 2ba204e060850c7cb0efc9133d73a4c68b3dc0e6..e7670cf4724fb986da5508dd6f451c69e9ceffff 100644
+--- a/dist/tasks/text-classification.js
++++ b/dist/tasks/text-classification.js
+@@ -1,4 +1,4 @@
+-import { Tensor, TensorType } from "../tensor";
++import { Tensor, TensorType } from "../tensor.js";
+ export class AiTextClassification {
+     constructor(inputs, modelSettings) {
+         this.schema = {
+diff --git a/dist/tasks/text-embeddings.js b/dist/tasks/text-embeddings.js
+index 1ffc98a1588dfda004d7c74ac6f33f7f284fb3e1..9f15c1a53460381c2cb3085a100e4371be27da4f 100644
+--- a/dist/tasks/text-embeddings.js
++++ b/dist/tasks/text-embeddings.js
+@@ -1,4 +1,4 @@
+-import { Tensor, TensorType } from "../tensor";
++import { Tensor, TensorType } from "../tensor.js";
+ const chunkArray = (arr, size) => arr.length > size ? [arr.slice(0, size), ...chunkArray(arr.slice(size), size)] : [arr];
+ export class AiTextEmbeddings {
+     constructor(inputs, modelSettings) {
+diff --git a/dist/tasks/text-generation.js b/dist/tasks/text-generation.js
+index c2622b2279029ebe9716fec3ab8cb7e400aadb16..1fbed5984300c7920b39bf89f67edee9097d0d1d 100644
+--- a/dist/tasks/text-generation.js
++++ b/dist/tasks/text-generation.js
+@@ -1,4 +1,4 @@
+-import { Tensor, TensorType } from "../tensor";
++import { Tensor, TensorType } from "../tensor.js";
+ export class AiTextGeneration {
+     constructor(inputs, modelSettings) {
+         this.schema = {
+diff --git a/dist/tasks/translation.js b/dist/tasks/translation.js
+index 5b87867576d05f744274a3b80088b0cf99ae7c6b..b59e80d49ed99c5b77883d782a706b1ca80ef137 100644
+--- a/dist/tasks/translation.js
++++ b/dist/tasks/translation.js
+@@ -1,4 +1,4 @@
+-import { Tensor, TensorType } from "../tensor";
++import { Tensor, TensorType } from "../tensor.js";
+ export class AiTranslation {
+     constructor(inputs, modelSettings) {
+         this.schema = {
+diff --git a/dist/tools.js b/dist/tools.js
+index 9a5dd1ee329d1da25dfc40a80cec8e09b48bc847..22c3c9411b6eada422591ae2b1be79c2b0f1674a 100644
+--- a/dist/tools.js
++++ b/dist/tools.js
+@@ -1,10 +1,6 @@
+ import * as Validators from "./tasks/data/validators.js";
+-import { modelSettings } from "./catalog";
++import { modelSettings } from "./catalog.js";
+ export const validateInput = (schemaId, inputs) => {
+-    const valid = Validators[`#/definitions/${schemaId}`](inputs);
+-    if (!valid) {
+-        throw Validators[`#/definitions/${schemaId}`].errors.map((e) => e.message).join(",");
+-    }
+ };
+ export const getModelSettings = (model, key) => {
+     const models = Object.keys(modelSettings);
+diff --git a/package.json b/package.json
+index 01ad877abde727cb1b0084ab9c6450c59a93f76e..2bd7a9a4b2e3aed3ecc7f08be85a6861d2d03e62 100644
+--- a/package.json
++++ b/package.json
+@@ -1,5 +1,6 @@
+ {
+   "name": "@cloudflare/ai",
++  "type": "module",
+   "version": "1.0.22",
+   "description": "JavaScript library for Cloudflare's Workers AI service",
+   "author": "Sven Sauleau <sven@cloudflare.com>",

@@ -1,0 +1,38 @@
+{
+  "name": "adventure",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^7.6.1",
+    "@astrojs/tailwind": "^5.0.2",
+    "@astrojs/vue": "^3.0.1",
+    "@cloudflare/ai": "^1.0.22",
+    "astro": "^3.3.2",
+    "nes.css": "^2.3.0",
+    "sass": "^1.69.4",
+    "tailwindcss": "^3.3.3",
+    "vue": "^3.2.30"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231016.0",
+    "bundled-eslint-config": "^0.2.6",
+    "eslint": "^8.52.0",
+    "knip": "^2.35.0",
+    "simple-knip-config": "^0.1.0",
+    "some-tsconfig-preset": "^1.2.0",
+    "typescript": "^5.2.2",
+    "wrangler": "^3.14.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@cloudflare/ai@1.0.22": "patches/@cloudflare__ai@1.0.22.patch"
+    }
+  }
+}
