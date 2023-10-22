@@ -45,7 +45,7 @@
     </p>
     <p>This is a text-based adventure game running on Cloudflare Workers</p>
     <p>It uses Workers AI to generate the stories.</p>
-    <p>Read about it <a href="https://danifoldi.com/blog/adventure-game">here</a>.</p>
+    <p>Read about it <a href="https://danifoldi.com/blog/posts/adventure">here</a>.</p>
   </div>
   <section class="message-list">
     <template v-for="[ index, item ] in story.entries()" :key="index">

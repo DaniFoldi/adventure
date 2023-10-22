@@ -24,5 +24,5 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   const { response } = await ai.run('@cf/meta/llama-2-7b-chat-int8', { messages })
 
-  return Response.json([ ...messages, { role: 'assistant', content: response.replace('Great! Let\'s begin.', '').trim() }])
+  return Response.json([ ...messages, { role: 'assistant', content: response.replace(/^Great[!,] .*?\n/s, '').trim() }])
 }
