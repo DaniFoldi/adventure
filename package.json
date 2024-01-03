@@ -28,7 +28,7 @@
     "simple-knip-config": "^0.1.0",
     "some-tsconfig-preset": "^1.2.0",
     "typescript": "^5.2.2",
-    "wrangler": "^3.14.0"
+    "wrangler": "^3.19.0"
   },
   "pnpm": {
     "patchedDependencies": {
